@@ -29,10 +29,11 @@ if '-g' in arg_dict.keys():
         print(arg_dict['-g'] + ".py is not existing or does not have the correct format (refer to file grids.py)")
 if grids is None:
     print()
-    print('command line: python3 sudoku_solve ["string with grid to be solved of 81 characters"] [-g gridpythonfile]"')
+    print('command line: python3 sudoku_solve ["string with grid to be solved of 81 characters"] [-d] [-g gridpythonfile]"')
     print('   example string: "......19.23....6.....24..........96....16..7..48.7......1..34.5..9..8.....6..58.."')
     print('   for strings of bigger grids like with 256 or 512 cells, use gridpythonfile input')
     print('   gridpythonfile is a filename that contains the digits var & and array of grids')
+    print('   -d when using -d option, then grids will not be solved but just printed for easy sudoku user solving')
     print()
     exit()
 
@@ -156,6 +157,26 @@ def display(mvalues):
             range(0, mcols)))
         if (r != mcols - 1) and (int(r % sqr_width) == sqr_width - 1):
             print(line)
+
+
+symbs = {'bl':u'\u255a', 'tl':u'\u2554', 'bm':u'\u2569', 'tl':u'\u2566', 'ml':u'\u2560', 'h':u'\u2550', 'mm':u'\u256c'}
+
+def paperdisplay(mvalues):
+    if mvalues is None:
+        return
+    width = 3 + max(len(mvalues[i]) for i in range_all_cells)
+    mvalues1 = [mvalues[i] if mvalues[i] != '.' else ' ' for i in range(len(mvalues))]
+    line_width = width * sqr_width
+    line_cell = ''.join(['-' * (line_width - 1)])
+    line = (line_cell + '-++-') * (sqr_width - 1) + line_cell
+    for r in range(0, mrows):
+        print(''.join(
+            mvalues1[r * mcols + c].center(width) + (
+                '|| ' if (c != mcols - 1) and (int(c % sqr_width) == sqr_width - 1) else '') for c in
+            range(0, mcols)))
+        if (r != mcols - 1) and (int(r % sqr_width) == sqr_width - 1):
+            print(line)
+
 
 
 # algorithm 1: simply propagating a cell with one digit ot all his peers
@@ -288,6 +309,8 @@ for k in range(0,len(grids)):
     values, sngles = parse_grid(grids[k])
     print("**START************* grid: " + str(k + 1))
     display(simple_parse_grid(grids[k]))
+    if '-d' in arg_dict.keys():
+        paperdisplay(simple_parse_grid(grids[k]))
     values, sngles = rsolve(values, sngles, display_starting_grid=False)
     print(" ")
     display(values)
