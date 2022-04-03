@@ -6,7 +6,5 @@ This tool works for sudoku grids with 81, 256 or 625 cells.
 
 
 sudoku_generate.py : tool for generating sudoku's
-
 sudoku_solve.py : tool for solving whatever sudoku's it is offered
-
 sudoku_print.py : tool for printing sudoku's
