@@ -7,7 +7,7 @@ def print_legend():
     print('   only one of both options can be shown a string or a file')
     print('   example string: "......19.23....6.....24..........96....16..7..48.7......1..34.5..9..8.....6..58.."')
     print('   for strings of bigger grids like with 256 or 512 cells, use gridpythonfile input')
-    print('   gridpythonfile is a filename that contains the a grids array');
+    print('   gridpythonfile is a filename that contains the a grids array')
     print('   -n x if -n is specified only grid i will be printed, if -n is not specified all grids will be printed')
     print()
     exit()
